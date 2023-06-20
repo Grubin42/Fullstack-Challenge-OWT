@@ -1,41 +1,41 @@
 const { Boat, sequelize } = require('../db/sequelize');
-const { Op } = require('sequelize');//opérateur sequelize
+const { Op } = require('sequelize');
 const auth = require('../auth/auth');
 
 const limitBoat = 2;
 
 module.exports = (app) => {
-    app.get('/api/boats', auth, (req,res) => {
-        if (req.query.name) {
-            const term = req.query.name;
-            return Boat.findAll({ where: { 
-                name: { 
-                    [Op.like]: `%${term}%`
-                } 
-            },
-            order: sequelize.random(),
-            limit: limitBoat
-        })
-        .then(boats => {
-            const message = 'Voici tous les boats.';
-            res.json(boats)
-        })
-        } else {
-            Boat.findAll({
-                order: sequelize.random(),
-                //limit: limitBoat
-            })
-            .then(boats => {
-                    const message = 'Voici tous les boats.';
-                    res.json(boats)
-                })
-                .catch(error => {
-                    const message = `Echec du chargement des boats. Réessayez dans un instant.`
-                    res.status(500).json({
-                        message,
-                        data: error
-                    })
-                })
+    app.get('/api/boats', auth, async (req, res) => {
+        try {
+            if (req.query.name) {
+                const term = req.query.name;
+                const boats = await Boat.findAll({
+                    where: {
+                        name: {
+                        [Op.like]: `%${term}%`
+                        }
+                    },
+                    order: sequelize.random(),
+                    limit: limitBoat
+                });
+
+                const message = 'Voici tous les bateaux.';
+                res.json(boats);
+            } else {
+                const boats = await Boat.findAll({
+                    order: sequelize.random(),
+                    // limit: limitBoat
+                });
+
+                const message = 'Voici tous les bateaux.';
+                res.json(boats);
+            }
+        } catch (error) {
+            const message = 'Échec du chargement des bateaux. Réessayez dans un instant.';
+            res.status(500).json({
+                message,
+                data: error
+            });
         }
-    })
-}
+    });
+};
