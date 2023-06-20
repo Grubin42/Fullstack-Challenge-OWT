@@ -1,6 +1,6 @@
 import Boat from "../models/boat";
  
-export default class PedaloService {
+export default class BoatService {
  
   static getBoats(): Promise<Boat[]> {
     return fetch('http://localhost:3001/boat')
@@ -35,7 +35,6 @@ export default class PedaloService {
   }
 
   static addBoat(boat: Boat): Promise<Boat> {
-    
     return fetch(`http://localhost:3001/boat`, {
         method: 'POST',
         body: JSON.stringify(boat),

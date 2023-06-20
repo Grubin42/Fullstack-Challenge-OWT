@@ -1,24 +1,24 @@
 import React, { FunctionComponent } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Login from './pages/login'
 import PageNotFound from './pages/page-not-found';
 import BoatList from './pages/boat-list'
+import BoatEdit from './pages/boat-edit';
+import BoatsDetail from './pages/boat-detail';
+import BoatAdd from './pages/boat-add';
+import './App.css'
 const App: FunctionComponent = () => {
 
  return (
     <Router>
         <div>
-            { /* la barre de nav commun a toutes les pages*/}
-            <nav>
-                <div className='nav-wrapper teal'>
-                    <Link to="/" className='brand-logo center'>PEDALO</Link>
-                </div>
-            </nav>
-            { /* le systeme de gestion des routes de l'applications*/}
             <Switch>
                 <Route exact path='/' component={Login} />
+                <Route exact path='/login' component={Login} />
                 <Route exact path="/boat" component={BoatList} />
-
+                <Route exact path='/boat/add' component={BoatAdd} />
+                <Route exact path={"/boat/edit/:id"} component={BoatEdit} />
+                <Route path='/boat/:id' component={BoatsDetail} />
                 <Route component={PageNotFound} />
             </Switch>
         </div>
@@ -27,3 +27,10 @@ const App: FunctionComponent = () => {
 }
   
 export default App;
+
+
+
+
+//// a voir faire formulaire signe in utilisateur 
+//// finir le frontend
+//// 

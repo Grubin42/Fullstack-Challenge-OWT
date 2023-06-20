@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState, useEffect } from 'react';
 import Boat from '../models/boat';
 import BoatCard from '../components/boat-card';
 import BoatService from '../services/boat-service';
+import { Link } from 'react-router-dom';
 
 const BoatList: FunctionComponent = () => {
 const [boats, setboats] = useState<Boat[]>([]);
@@ -19,6 +20,11 @@ const [boats, setboats] = useState<Boat[]>([]);
           <BoatCard key={boats.id} boat={boats} />
         ))}
         </div>
+        <Link className='btn-floating btn-large waves-effect waves-light red z-depth-3'
+          style={{position: 'fixed', bottom: '25px', right: '25px'}}
+          to='/boat/add'>
+          <i className='material-icons'>add</i>
+        </Link>
       </div>
     </div> 
   );

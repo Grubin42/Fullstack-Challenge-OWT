@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthenticationService from '../services/authentication-service';
-
+import './login.css'
 type Field = {
   value?: any,
   error?: string,
@@ -78,48 +78,52 @@ const Login: FunctionComponent = () => {
   }
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <div className="row">
-        <div className="col s12 m8 offset-m2">
-          <div className="card hoverable">
-            <div className="card-stacked">
-              <div className="card-content">
-                {/* Form message */}
-                {message && <div className="form-group">
-                  <div className="card-panel grey lighten-5">
-                    {message}
-                  </div>
-                </div>}
-                {/* Field username */}
-                <div className="form-group">
-                  <label htmlFor="username">Identifiant</label>
-                  <input id="username" type="text" name="username" className="form-control" value={form.username.value} onChange={e => handleInputChange(e)}></input>
-                  {/* error */}
-                  {form.username.error &&
-                  <div className="card-panel red accent-1"> 
-                   {form.username.error} 
-                  </div>} 
-                </div>
-                {/* Field password */}
-                <div className="form-group">
-                  <label htmlFor="password">Mot de passe</label>
-                  <input id="password" type="password" name="password" className="form-control" value={form.password.value} onChange={e => handleInputChange(e)}></input>
-                  {/* error */}
-                  {form.password.error &&
-                  <div className="card-panel red accent-1"> 
-                   {form.password.error} 
-                  </div>} 
-                </div>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <form onSubmit={(e) => handleSubmit(e)} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div className="row">
+          <div className="col s12 m8 offset-m2 center-align">
+            {/* Form message */}
+            {message && (
+              <div style={{margin: '10px'}}>
+                <div>{message}</div>
               </div>
-              <div className="card-action center">
-                {/* Submit button */}
-                <button type="submit" className="btn">Valider</button>
-              </div>
+            )}
+            {/* Field username */}
+            <div className="form-group">
+              <label htmlFor="username">Identifiant</label>
+              <input
+                id="username"
+                type="text"
+                name="username"
+                className="form-control"
+                style={{ maxWidth: '200px', textAlign: 'center' }}
+                value={form.username.value}
+                onChange={(e) => handleInputChange(e)}
+              ></input>
+            </div>
+            {/* Field password */}
+            <div className="form-group">
+              <label htmlFor="password">Mot de passe</label>
+              <input
+                id="password"
+                type="password"
+                name="password"
+                className="form-control"
+                style={{ maxWidth: '200px', textAlign: 'center' }}
+                value={form.password.value}
+                onChange={(e) => handleInputChange(e)}
+              ></input>
+            </div>
+            {/* Submit button */}
+            <div className="center">
+              <button type="submit" className="btn">
+                Valider
+              </button>
             </div>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
  
