@@ -22,11 +22,18 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         picture: {
-            type: DataTypes.STRING,//a voir si on enregistre les binaire en bdd ou juste le path des imgs
+            type: DataTypes.TEXT,//a voir si on enregistre les binaire en bdd ou juste le path des imgs
             allowNull: false,
             validate: {
                 notEmpty: { msg: 'Ce champ ne peut pas être vide' },
-                notNull: { msg: 'Champ obligatoire' }
+                notNull: { msg: 'Champ obligatoire' },
+                isURL: {
+                    args: {
+                      protocols: ['http', 'https'], // Définit les protocoles autorisés
+                      require_protocol: true, // Exige un protocole dans l'URL
+                    },
+                    msg: 'URL invalide',
+                },
             }
         },
     }, {
