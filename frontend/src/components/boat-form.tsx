@@ -62,7 +62,7 @@ const BoatForm: FunctionComponent<Props> = ({boat, isEditForm}) => {
   }
 
   const isAddForm = () => {
-    return !isAddForm;
+    return !isEditForm; // Retourner true si le formulaire n'est pas en mode édition
   }
 
   const validatorForm = () => {
@@ -82,7 +82,7 @@ const BoatForm: FunctionComponent<Props> = ({boat, isEditForm}) => {
       }
     }
 
-    if(!/^[a-za-zàéè ]{3,25}$/.test(form.name.value)) { // expression reguliere
+    if(!form.name.value) { // expression reguliere
       const errorMsg: string = "le nom de l'Boat est requis (1-25)";
       const newField: Field = {value: form.name.value, error: errorMsg, isValid: false};
       newForm = {...newForm, ...{name: newField} };  
@@ -91,13 +91,13 @@ const BoatForm: FunctionComponent<Props> = ({boat, isEditForm}) => {
       newForm = { ...newForm, ...{ name: newField} };
     }
 
-    if(!/^[a-za-zàéè ]{3,80}$/.test(form.description.value)) {
+    if(!form.description.value) {
       const errorMsg: string = "pas ouf";
       const newField: Field = {value: form.description.value, error: errorMsg, isValid: false};
       newForm = {...newForm, ...{description: newField} };  
     } else {
       const newField: Field = { value: form.description.value, error: '', isValid: true };
-      newForm = { ...newForm, ...{ name: newField} };
+      newForm = { ...newForm, ...{ description: newField} };
     }
 
     setForm(newForm);

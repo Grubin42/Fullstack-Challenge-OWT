@@ -10,9 +10,10 @@ const BoatsDetail: FunctionComponent<RouteComponentProps<Params>> = ({ match }) 
   const [boat, setBoat] = useState<Boat|null>(null); //defini un state pour sauvegarder l'avatar a afficher
   
   useEffect(() => {
-    BoatService.getBoat(+match.params.id).then(boat => setBoat(boat)); // + convertie l identifiant en nombre parce que nous le recevon sous forme de charactere
+    BoatService.getBoat(+match.params.id).then(response => setBoat(response.data));
   }, [match.params.id]);
-    
+  
+  console.log('egal======', boat)
   return (
     <div>
       { boat ? ( //defini un operateur ternaire
