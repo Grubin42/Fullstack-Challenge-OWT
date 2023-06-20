@@ -11,7 +11,7 @@ NAME		= pedalo
 
 
 # COMMANDS
-DOCKER		=  docker compose -f ${DOCKER_DIR} -p ${NAME}
+DOCKER		=  docker-compose -f ${DOCKER_DIR} -p ${NAME}
 
 %:
 	@:

@@ -46,8 +46,8 @@ const Login: FunctionComponent = () => {
     }
 
     // Validator password
-    if(form.password.value.length < 6) {
-      const errorMsg: string = 'Votre mot de passe doit faire au moins 6 caractères de long.';
+    if(form.password.value.length < 3) {
+      const errorMsg: string = 'Votre mot de passe doit faire au moins 3 caractères de long.';
       const newField: Field = {value: form.password.value, error: errorMsg, isValid: false};
       newForm = { ...newForm, ...{ password: newField } };
     } else {
