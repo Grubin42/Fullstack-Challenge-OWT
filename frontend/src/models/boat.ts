@@ -13,7 +13,7 @@ export default class Boat {
         picture: string,
     ) {
      // 3. Initialisation des propiétés d'un pokémons.
-        this.id = 0;
+        this.id = id;
         this.name = name;
         this.description = description;
         this.picture = picture;

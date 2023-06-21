@@ -2,9 +2,11 @@ import React, { FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Boat from '../models/boat';
 import BoatService from '../services/boat-service';
-
+//import formatType from '../helpers/format-type';
+  // 3h40 de video
 type Props = {
   boat: Boat,
+  isEditForm: boolean
 };
   
 type Field = {
@@ -19,7 +21,7 @@ type Form = {
     description: Field,
 }
 
-const BoatForm: FunctionComponent<Props> = ({boat}) => {
+const BoatForm: FunctionComponent<Props> = ({boat, isEditForm}) => {
   
   const history = useHistory();
   
@@ -43,17 +45,44 @@ const BoatForm: FunctionComponent<Props> = ({boat}) => {
     const isFormValid = validatorForm();
 
     if (isFormValid){
+      boat.picture = form.picture.value;
       boat.name = form.name.value;
       boat.description = form.description.value;
 
-      BoatService.updateBoat(boat).then(() => history.push(`/boat/${boat.id}`))
+      isEditForm ? updateBoat() : addBoat()
     }
+  }
+
+  const addBoat = () => {
+    BoatService.addBoat(boat).then(() => history.push('/boat'));
+  }
+
+  const updateBoat = () => {
+    BoatService.updateBoat(boat).then(() => history.push(`/boat/${boat.id}`))
+  }
+
+  const isAddForm = () => {
+    return !isAddForm;
   }
 
   const validatorForm = () => {
     let newForm: Form = form;
 
-    if(!form.name.value) { // expression reguliere
+    if (isAddForm()) {
+      const start = "";
+      const end = ".png"
+
+      if (!form.picture.value.startsWith(start) || !form.picture.value.endsWith(end)) {
+        const errorMsg: string = "l'url n'est pas valide";
+        const newField: Field = { value: form.picture.value, error: errorMsg, isValid: false};
+        newForm = {...form, ...{picture: newField}};
+      }else {
+        const newField: Field = {value: form.picture.value, error: '', isValid: true};
+        newForm = { ...form, ...{picture: newField}};
+      }
+    }
+
+    if(!/^[a-za-zàéè ]{3,25}$/.test(form.name.value)) { // expression reguliere
       const errorMsg: string = "le nom de l'Boat est requis (1-25)";
       const newField: Field = {value: form.name.value, error: errorMsg, isValid: false};
       newForm = {...newForm, ...{name: newField} };  
@@ -62,13 +91,13 @@ const BoatForm: FunctionComponent<Props> = ({boat}) => {
       newForm = { ...newForm, ...{ name: newField} };
     }
 
-    if(!form.description.value) {
+    if(!/^[a-za-zàéè ]{3,80}$/.test(form.description.value)) {
       const errorMsg: string = "pas ouf";
       const newField: Field = {value: form.description.value, error: errorMsg, isValid: false};
       newForm = {...newForm, ...{description: newField} };  
     } else {
       const newField: Field = { value: form.description.value, error: '', isValid: true };
-      newForm = { ...newForm, ...{ description: newField} };
+      newForm = { ...newForm, ...{ name: newField} };
     }
 
     setForm(newForm);
@@ -84,14 +113,27 @@ const BoatForm: FunctionComponent<Props> = ({boat}) => {
       <div className="row">
         <div className="col s12 m8 offset-m2">
           <div className="card hoverable">
+            {isEditForm && (
             <div className="card-image">
               <img src={boat.picture} alt={boat.name} style={{width: '250px', margin: '0 auto'}}/>
               <span className='btn-floating halfway-fab waves-effect waves-light'>
                 <i onClick={deleteBoat} className='material-icons'>delete</i>
               </span>
             </div>
+            )}
             <div className="card-stacked">
               <div className="card-content">
+                {/* Boat picture */}
+                {isAddForm() && (
+                <div className="form-group">
+                  <label htmlFor="name">Img</label>
+                  <input id="picture" name="picture" type="text" className="form-control" value={form.picture.value} onChange={e => handelInputChange(e)}></input>
+                  {form.picture.error &&
+                  <div className='card-panel red accent-1'> 
+                    {form.picture.error}
+                  </div>}
+                </div>
+                )}
                 {/* Boat name */}
                 <div className="form-group">
                   <label htmlFor="name">Nom</label>

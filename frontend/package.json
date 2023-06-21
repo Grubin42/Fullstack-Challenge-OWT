@@ -2,7 +2,6 @@
     "name": "challenge",
     "version": "1.0.0",
     "dependencies": {
-      "@babel/plugin-proposal-private-property-in-object": "",
       "@types/node": "12.11.1",
       "@types/react": "16.9.9",
       "@types/react-dom": "16.9.2",

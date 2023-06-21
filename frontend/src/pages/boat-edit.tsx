@@ -11,8 +11,7 @@ const BoatEdit: FunctionComponent<RouteComponentProps<Params>> = ({ match }) => 
   const [boat, setBoat] = useState<Boat|null>(null);
   
   useEffect(() => {
-    BoatService.getBoat(+match.params.id).then(response => setBoat(response.data));
-    console.log(match.params.id)
+    BoatService.getBoat(+match.params.id).then(boat => setBoat(boat));
   }, [match.params.id]);
     
   return (
