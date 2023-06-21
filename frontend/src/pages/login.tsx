@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthenticationService from '../services/authentication-service';
 import './login.css'
+
 type Field = {
   value?: any,
   error?: string,
@@ -46,8 +47,8 @@ const Login: FunctionComponent = () => {
     }
 
     // Validator password
-    if(form.password.value.length < 6) {
-      const errorMsg: string = 'Votre mot de passe doit faire au moins 6 caractères de long.';
+    if(form.password.value.length < 3) {
+      const errorMsg: string = 'Votre mot de passe doit faire au moins 3 caractères de long.';
       const newField: Field = {value: form.password.value, error: errorMsg, isValid: false};
       newForm = { ...newForm, ...{ password: newField } };
     } else {
@@ -122,9 +123,12 @@ const Login: FunctionComponent = () => {
             </div>
           </div>
         </div>
+          <button type="button" className="btn" style={{ marginTop: '10px' }}>
+            Créer un utilisateur
+          </button>
       </form>
     </div>
   );
 };
- 
+
 export default Login;
