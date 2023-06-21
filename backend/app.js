@@ -25,6 +25,7 @@ require('./src/routes/updateBoat')(app);
 require('./src/routes/deleteBoat')(app);
 
 require('./src/routes/login')(app);
+require('./src/routes/signIn')(app);
 
 app.use(({res}) => {
    const message = 'Ressource indisponible sur cette URL.';

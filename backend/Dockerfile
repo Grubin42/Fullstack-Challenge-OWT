@@ -1,20 +1,20 @@
-# Utilise une image de base pour Node.js
-FROM node:14
+# Utilisez une image de base avec Node.js
+FROM node:14-alpine
 
-# Répertoire de travail dans le conteneur
+# Définissez le répertoire de travail
 WORKDIR /app
 
-# Copie les fichiers de package.json et package-lock.json
+# Copiez le package.json et le package-lock.json (si applicable)
 COPY package*.json ./
 
-# Installe les dépendances
+# Installez les dépendances
 RUN npm install
 
-# Copie le reste des fichiers de l'application
+# Copiez le reste des fichiers de l'application
 COPY . .
 
-# Port sur lequel l'application écoute
+# Exposez le port sur lequel le backend écoute
 EXPOSE 3000
 
-# Commande de démarrage de l'application
-CMD [ "npm", "start" ]
+# Démarrez le backend
+CMD ["node", "app.js"]

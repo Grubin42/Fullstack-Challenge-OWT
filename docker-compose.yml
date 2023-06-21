@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+
+  backend: 
+    container_name: backend
+    build:
+      context: ./backend
+    depends_on:
+      - database
+    env_file:
+      - ./backend/.env
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+
+  frontend:
+    container_name: frontend
+    build:
+        context: ./frontend
+    ports:
+      - 80:80
+    networks:
+      - mynetwork
+
+
+  database:
+    image: mariadb
+    restart: always
+    env_file: 
+      - ./backend/.env
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - mynetwork
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '8080:80'
+    depends_on:
+      - database
+    env_file: 
+      - ./backend/.env
+    networks:
+      - mynetwork
+
+volumes:
+  db_data:
+
+networks:
+  mynetwork:
