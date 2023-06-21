@@ -2,6 +2,8 @@ import React, { FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthenticationService from '../services/authentication-service';
 import './login.css'
+import BoatService from '../services/boat-service';
+
 type Field = {
   value?: any,
   error?: string,
@@ -21,6 +23,23 @@ const Login: FunctionComponent = () => {
     username: { value: '' },
     password: { value: '' },
   });
+
+  const [creatingUser, setCreatingUser] = useState(false);
+
+  const handleCreateUser = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const isFormValid = validateForm();
+    if (isFormValid) {
+      const username = form.username.value;
+      const password = form.password.value;
+
+      BoatService.createUser( username, password).then(() => history.push(`/boat`))
+      setForm({
+        username: { value: '' },
+        password: { value: '' },
+      });
+    }
+  };
 
   const [message, setMessage] = useState<string>('Vous êtes déconnecté.');
 
@@ -46,8 +65,8 @@ const Login: FunctionComponent = () => {
     }
 
     // Validator password
-    if(form.password.value.length < 6) {
-      const errorMsg: string = 'Votre mot de passe doit faire au moins 6 caractères de long.';
+    if(form.password.value.length < 3) {
+      const errorMsg: string = 'Votre mot de passe doit faire au moins 3 caractères de long.';
       const newField: Field = {value: form.password.value, error: errorMsg, isValid: false};
       newForm = { ...newForm, ...{ password: newField } };
     } else {
@@ -122,9 +141,28 @@ const Login: FunctionComponent = () => {
             </div>
           </div>
         </div>
+        {!creatingUser && (
+          <button
+            type="button"
+            className="btn"
+            onClick={() => setCreatingUser(true)}
+            style={{ marginTop: '10px' }}
+          >
+            Créer un utilisateur
+          </button>
+        )}
       </form>
+      {creatingUser ? (
+        <form onSubmit={handleCreateUser} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {/* ... Contenu du formulaire de création d'utilisateur ... */}
+        </form>
+      ) : (
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {/* ... Contenu du formulaire de connexion ... */}
+        </form>
+      )}
     </div>
   );
 };
- 
+
 export default Login;
