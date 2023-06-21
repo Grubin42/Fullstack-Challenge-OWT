@@ -24,13 +24,13 @@ const BoatForm: FunctionComponent<Props> = ({boat}) => {
   const history = useHistory();
   
   const [form, setForm] = useState<Form>({
-    picture: {value: boat.picture},
-    name: { value: boat.name, isValid: true},
-    description: { value: boat.description, isValid: true},
+    picture: { value: boat.picture || '' },
+    name: { value: boat.name || '', isValid: true },
+    description: { value: boat.description || '', isValid: true },
   });
 
   
-  const handelInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fieldName: string = e.target.name;
     const fieldValue: string = e.target.value;
     const newField: Field = {[fieldName]: { value: fieldValue }};
@@ -40,18 +40,20 @@ const BoatForm: FunctionComponent<Props> = ({boat}) => {
   
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const isFormValid = validatorForm();
-
-    if (isFormValid){
-      boat.name = form.name.value;
-      boat.description = form.description.value;
-
-      BoatService.updateBoat(boat).then(() => history.push(`/boat/${boat.id}`))
-    }
+    
+    validatorForm();
+    boat.picture = form.picture.value;
+    boat.name = form.name.value;
+    boat.description = form.description.value;
+    
+    BoatService.addBoat(boat).then(() => history.push('/boat'))
   }
 
   const validatorForm = () => {
     let newForm: Form = form;
+
+    const newField: Field = {value: form.picture.value, error: '', isValid: true};
+    newForm = { ...form, picture: { ...form.picture, ...newField } };
 
     if(!form.name.value) { // expression reguliere
       const errorMsg: string = "le nom de l'Boat est requis (1-25)";
@@ -92,10 +94,19 @@ const BoatForm: FunctionComponent<Props> = ({boat}) => {
             </div>
             <div className="card-stacked">
               <div className="card-content">
+                {/* Boat picture */}
+                <div className="form-group">
+                  <label htmlFor="name">Img</label>
+                  <input id="picture" name="picture" type="text" className="form-control" value={form.picture.value} onChange={e => handleInputChange(e)}></input>
+                  {form.picture.error &&
+                  <div className='card-panel red accent-1'> 
+                    {form.picture.error}
+                  </div>}
+                </div>
                 {/* Boat name */}
                 <div className="form-group">
                   <label htmlFor="name">Nom</label>
-                  <input id="name" name="name" type="text" className="form-control" value={form.name.value} onChange={e => handelInputChange(e)}></input>
+                  <input id="name" name="name" type="text" className="form-control" value={form.name.value} onChange={e => handleInputChange(e)}></input>
                   {form.name.error &&
                   <div className='card-panel red accent-1'> 
                     {form.name.error}
@@ -105,7 +116,7 @@ const BoatForm: FunctionComponent<Props> = ({boat}) => {
                 {/* Boat genre */}
                 <div className="form-group">
                   <label htmlFor="name">description</label>
-                  <input id="description" name="description" type="text" className="form-control" value={form.description.value} onChange={e => handelInputChange(e)}></input>
+                  <input id="description" name="description" type="text" className="form-control" value={form.description.value} onChange={e => handleInputChange(e)}></input>
                   {form.description.error &&
                   <div className='card-panel red accent-1'> 
                     {form.description.error}

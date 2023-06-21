@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import BoatForm from "../components/boat-form";
+import BoatForm from "../components/boat-add-form";
 import Boat from "../models/boat";
 
 const BoatAdd: FunctionComponent = () => {
@@ -9,7 +9,7 @@ const BoatAdd: FunctionComponent = () => {
     return (
         <div className="row">
             <h2 className="header center"> Ajouter un bateau</h2>
-            <BoatForm boat={boat} isEditForm={true}></BoatForm>
+            <BoatForm boat={boat}></BoatForm>
         </div>
     );
 }
