@@ -1,30 +1,23 @@
-# Utiliser une image de base avec Node.js
-FROM node:14
+FROM node:18-alpine
 
-# Définir le répertoire de travail
+# Install dependencies
+RUN apk update && apk upgrade \
+    && apk add --no-cache --quiet --update \
+    	curl zsh
+
+# Set the working directory to /app
 WORKDIR /app
 
-# Copier les fichiers package.json et package-lock.json pour installer les dépendances
-COPY package*.json ./
+# install dependencies
+COPY ./package.json ./package-lock.json ./
 
-# Installer les dépendances
-RUN npm install
 
-# Copier le reste des fichiers de l'application
-COPY . .
+RUN npm install --no-cache
 
-# Build du projet React
-RUN npm run build
 
-# Utiliser une image légère basée sur Nginx pour servir l'application construite
-FROM nginx:alpine
+# Expose the port the application will be running on
+EXPOSE 5173
 
-# Copier les fichiers construits à partir de l'étape précédente vers le répertoire approprié de Nginx
-COPY --from=0 /app/build /usr/share/nginx/html
-
-# Exposer le port sur lequel Nginx écoute
-EXPOSE 80
-
-# Démarrer Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start the application
+CMD ["npm", "run", "build"]
 

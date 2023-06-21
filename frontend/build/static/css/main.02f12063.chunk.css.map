@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/pages/login.css"],"names":[],"mappings":"AAAA,KACI,wBAAkC,CAClC,kBACJ","file":"main.02f12063.chunk.css","sourcesContent":[".btn{\n    background-color: rgb(43, 61, 226);\n    border-radius: 20px;\n}"]}
