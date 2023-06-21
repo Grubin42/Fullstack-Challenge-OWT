@@ -2,7 +2,6 @@ import React, { FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthenticationService from '../services/authentication-service';
 import './login.css'
-import BoatService from '../services/boat-service';
 
 type Field = {
   value?: any,
@@ -23,23 +22,6 @@ const Login: FunctionComponent = () => {
     username: { value: '' },
     password: { value: '' },
   });
-
-  const [creatingUser, setCreatingUser] = useState(false);
-
-  const handleCreateUser = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const isFormValid = validateForm();
-    if (isFormValid) {
-      const username = form.username.value;
-      const password = form.password.value;
-
-      BoatService.createUser( username, password).then(() => history.push(`/boat`))
-      setForm({
-        username: { value: '' },
-        password: { value: '' },
-      });
-    }
-  };
 
   const [message, setMessage] = useState<string>('Vous êtes déconnecté.');
 
@@ -141,26 +123,10 @@ const Login: FunctionComponent = () => {
             </div>
           </div>
         </div>
-        {!creatingUser && (
-          <button
-            type="button"
-            className="btn"
-            onClick={() => setCreatingUser(true)}
-            style={{ marginTop: '10px' }}
-          >
+          <button type="button" className="btn" style={{ marginTop: '10px' }}>
             Créer un utilisateur
           </button>
-        )}
       </form>
-      {creatingUser ? (
-        <form onSubmit={handleCreateUser} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          {/* ... Contenu du formulaire de création d'utilisateur ... */}
-        </form>
-      ) : (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          {/* ... Contenu du formulaire de connexion ... */}
-        </form>
-      )}
     </div>
   );
 };
