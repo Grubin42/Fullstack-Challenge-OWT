@@ -40,7 +40,7 @@ export default class BoatService {
   }
 
   static deleteBoat(boat: Boat): Promise<{}> {
-    return fetch(`https://localhost:3000/api/boats/${boat.id}`, {
+    return fetch(`http://localhost:3000/api/boats/${boat.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -7,6 +7,7 @@ import BoatEdit from './pages/boat-edit';
 import BoatsDetail from './pages/boat-detail';
 import BoatAdd from './pages/boat-add';
 import './App.css'
+import SignIn from './pages/sign_in';
 const App: FunctionComponent = () => {
 
  return (
@@ -15,6 +16,7 @@ const App: FunctionComponent = () => {
             <Switch>
                 <Route exact path='/' component={Login} />
                 <Route exact path='/login' component={Login} />
+                <Route path="/signin" component={SignIn} />
                 <Route exact path="/boat" component={BoatList} />
                 <Route exact path='/boat/add' component={BoatAdd} />
                 <Route exact path={"/boat/edit/:id"} component={BoatEdit} />

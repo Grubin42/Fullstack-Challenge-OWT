@@ -1,7 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import AuthenticationService from '../services/authentication-service';
-import './login.css'
+import BoatService from '../services/boat-service';
 
 type Field = {
   value?: any,
@@ -14,7 +13,7 @@ type Form = {
   password: Field
 }
 
-const Login: FunctionComponent = () => {
+const SignIn: FunctionComponent = () => {
 
   const history = useHistory();
 
@@ -23,7 +22,7 @@ const Login: FunctionComponent = () => {
     password: { value: '' },
   });
 
-  const [message, setMessage] = useState<string>('Vous êtes déconnecté.');
+  const [message, setMessage] = useState<string>('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const fieldName: string = e.target.name;
@@ -65,21 +64,18 @@ const Login: FunctionComponent = () => {
     e.preventDefault();
     const isFormValid = validateForm();
     if(isFormValid) {
-      setMessage('👉 Tentative de connexion en cours ...');
-      AuthenticationService.login(form.username.value, form.password.value).then(isAuthenticated => {
-        if(!isAuthenticated) {
-          setMessage('🔐 Identifiant ou mot de passe incorrect.');
+      setMessage('👉 Tentative de création de compte en cours ...');
+      // Utilisez la fonction de sign in de votre service d'authentification
+      BoatService.createUser(form.username.value, form.password.value).then(isSignedIn => {
+        if(!isSignedIn) {
+          setMessage('❌ Erreur lors de la création du compte.');
           return;
         }
         
-        history.push('/boat');
+        history.push('/login'); // Redirigez vers la page de tableau de bord ou toute autre page souhaitée après la création du compte
         
       });
     }
-  }
-
-  const handleCreateUser = () => {
-    history.push('/signin');
   }
 
   return (
@@ -122,17 +118,14 @@ const Login: FunctionComponent = () => {
             {/* Submit button */}
             <div className="center">
               <button type="submit" className="btn">
-                Valider
+                Créer un compte
               </button>
             </div>
           </div>
         </div>
-          <button type="button" className="btn" style={{ marginTop: '10px' }} onClick={handleCreateUser}>
-            Créer un utilisateur
-          </button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default SignIn;
