@@ -19,8 +19,6 @@ Pour exécuter l'application localement, suivez les instructions ci-dessous :
 
 1. Clonez le dépôt Git :
 
-- [Ici!](https://github.com/Grubin42/Fullstack-Challenge-OWT)
-
 
 2. Lancez les conteneurs Docker en utilisant la commande suivante :
 
@@ -29,7 +27,7 @@ Pour exécuter l'application localement, suivez les instructions ci-dessous :
 
 Cette commande lancera les conteneurs Docker pour le backend, le frontend, la base de données et phpMyAdmin.
 
-4. Attendez que les conteneurs se construisent et se lancent. Une fois terminé, vous pouvez accéder à l'application dans votre navigateur en utilisant l'URL suivante : [http://localhost:80](http://localhost:80)
+3. Attendez que les conteneurs se construisent et se lancent. Une fois terminé, vous pouvez accéder à l'application dans votre navigateur en utilisant l'URL suivante : [http://localhost:80](http://localhost:80)
 
 ## Configuration
 
