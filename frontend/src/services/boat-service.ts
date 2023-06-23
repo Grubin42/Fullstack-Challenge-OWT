@@ -53,7 +53,7 @@ export default class BoatService {
 
   static createUser = (username: string, password: string): Promise<boolean> => {
     const userData = { username, password };
-    return fetch('http://localhost:3000/api/users', {
+    return fetch('http://localhost:3000/api/signin', {
       method: 'POST',
       body: JSON.stringify(userData),
       headers: {
