@@ -56,7 +56,7 @@ const BoatForm: FunctionComponent<Props> = ({boat}) => {
     newForm = { ...form, picture: { ...form.picture, ...newField } };
 
     if(!form.name.value) { // expression reguliere
-      const errorMsg: string = "le nom de l'Boat est requis (1-25)";
+      const errorMsg: string = "le nom du Boat est requis";
       const newField: Field = {value: form.name.value, error: errorMsg, isValid: false};
       newForm = {...newForm, ...{name: newField} };  
     } else {
@@ -64,8 +64,17 @@ const BoatForm: FunctionComponent<Props> = ({boat}) => {
       newForm = { ...newForm, ...{ name: newField} };
     }
 
+    if (!form.picture.value) {
+      const errorMsg: string = "La photo du Boat est requise";
+      const newField: Field = { value: form.picture.value, error: errorMsg, isValid: false };
+      newForm = { ...newForm, ...{ picture: newField } };
+    } else {
+      const newField: Field = { value: form.picture.value, error: '', isValid: true };
+      newForm = { ...newForm, ...{ picture: newField } };
+    }
+    
     if(!form.description.value) {
-      const errorMsg: string = "pas ouf";
+      const errorMsg: string = "la desciption est requise";
       const newField: Field = {value: form.description.value, error: errorMsg, isValid: false};
       newForm = {...newForm, ...{description: newField} };  
     } else {

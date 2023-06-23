@@ -63,7 +63,7 @@ const BoatForm: FunctionComponent<Props> = ({boat}) => {
     }
 
     if(!form.description.value) {
-      const errorMsg: string = "pas ouf";
+      const errorMsg: string = "entrer une description";
       const newField: Field = {value: form.description.value, error: errorMsg, isValid: false};
       newForm = {...newForm, ...{description: newField} };  
     } else {

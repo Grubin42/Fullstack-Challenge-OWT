@@ -13,7 +13,7 @@ const [boats, setboats] = useState<Boat[]>([]);
   
   return (
     <div>
-      <h1 className="center">WAAAAA LES BEAUX BATEAU</h1>
+      <h1 className="center">PEDALO</h1>
       <div className="container"> 
         <div className="row"> 
         {boats.map(boats => (

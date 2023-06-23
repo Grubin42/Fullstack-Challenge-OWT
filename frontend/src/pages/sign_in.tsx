@@ -65,14 +65,14 @@ const SignIn: FunctionComponent = () => {
     const isFormValid = validateForm();
     if(isFormValid) {
       setMessage('👉 Tentative de création de compte en cours ...');
-      // Utilisez la fonction de sign in de votre service d'authentification
+
       BoatService.createUser(form.username.value, form.password.value).then(isSignedIn => {
         if(!isSignedIn) {
           setMessage('❌ Erreur lors de la création du compte.');
           return;
         }
         
-        history.push('/login'); // Redirigez vers la page de tableau de bord ou toute autre page souhaitée après la création du compte
+        history.push('/login'); 
         
       });
     }
