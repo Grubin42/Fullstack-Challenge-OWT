@@ -45,8 +45,9 @@ const BoatForm: FunctionComponent<Props> = ({boat}) => {
     boat.picture = form.picture.value;
     boat.name = form.name.value;
     boat.description = form.description.value;
-    
-    BoatService.addBoat(boat).then(() => history.push('/boat'))
+    if (boat.picture && boat.name && boat.description){
+      BoatService.addBoat(boat).then(() => history.push('/boat'))
+    }
   }
 
   const validatorForm = () => {
@@ -72,7 +73,7 @@ const BoatForm: FunctionComponent<Props> = ({boat}) => {
       const newField: Field = { value: form.picture.value, error: '', isValid: true };
       newForm = { ...newForm, ...{ picture: newField } };
     }
-    
+
     if(!form.description.value) {
       const errorMsg: string = "la desciption est requise";
       const newField: Field = {value: form.description.value, error: errorMsg, isValid: false};

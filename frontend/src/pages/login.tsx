@@ -109,7 +109,13 @@ const Login: FunctionComponent = () => {
                 value={form.username.value}
                 onChange={(e) => handleInputChange(e)}
               ></input>
+              {form.username.error &&
+                <div className='card-panel red accent-1'> 
+                  {form.username.error}
+                </div>
+              }
             </div>
+
             {/* Field password */}
             <div className="form-group">
               <label htmlFor="password">Mot de passe</label>
@@ -122,7 +128,13 @@ const Login: FunctionComponent = () => {
                 value={form.password.value}
                 onChange={(e) => handleInputChange(e)}
               ></input>
+              {form.password.error &&
+                <div className='card-panel red accent-1'> 
+                  {form.password.error}
+                </div>
+              }
             </div>
+
             {/* Submit button */}
             <div className="center">
               <button type="submit" className="btn">

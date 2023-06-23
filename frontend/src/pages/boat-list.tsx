@@ -8,7 +8,7 @@ const BoatList: FunctionComponent = () => {
 const [boats, setboats] = useState<Boat[]>([]);
   
   useEffect(() => {
-    BoatService.getBoats().then(boats => setboats(boats));
+      BoatService.getBoats().then(boats => setboats(boats));
   }, []);
   
   return (
