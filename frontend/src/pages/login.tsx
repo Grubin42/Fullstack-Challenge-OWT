@@ -18,6 +18,10 @@ const Login: FunctionComponent = () => {
 
   const history = useHistory();
 
+  if (localStorage.getItem('token')){
+    history.push('/boat');
+  }
+
   const [form, setForm] = useState<Form>({
     username: { value: '' },
     password: { value: '' },

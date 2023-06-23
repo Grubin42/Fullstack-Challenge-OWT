@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import BoatService from '../services/boat-service';
+import UserService from '../services/users.service';
 
 type Field = {
   value?: any,
@@ -66,7 +66,7 @@ const SignIn: FunctionComponent = () => {
     if(isFormValid) {
       setMessage('👉 Tentative de création de compte en cours ...');
 
-      BoatService.createUser(form.username.value, form.password.value).then(isSignedIn => {
+      UserService.createUser(form.username.value, form.password.value).then(isSignedIn => {
         if(!isSignedIn) {
           setMessage('❌ Erreur lors de la création du compte.');
           return;

@@ -1,4 +1,4 @@
-# Utilisez une image de base qui contient Node.js
+ # Utilisez une image de base qui contient Node.js
 FROM node:14
 
 # Définissez le répertoire de travail
@@ -20,4 +20,4 @@ RUN npm run build
 EXPOSE 5173
 
 # Démarrez l'application
-CMD ["npm", "run", "build"]
+CMD ["npm", "run", "build"] 

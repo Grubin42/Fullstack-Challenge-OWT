@@ -8,19 +8,22 @@ import BoatsDetail from './pages/boat-detail';
 import BoatAdd from './pages/boat-add';
 import './App.css'
 import SignIn from './pages/sign_in';
+import PrivateRoute from './PrivateRoute';
+
 const App: FunctionComponent = () => {
 
+    
  return (
     <Router>
         <div>
             <Switch>
-                <Route exact path='/' component={Login} />
+                <PrivateRoute exact path='/' component={Login} />
                 <Route exact path='/login' component={Login} />
                 <Route path="/signin" component={SignIn} />
-                <Route exact path="/boat" component={BoatList} />
-                <Route exact path='/boat/add' component={BoatAdd} />
-                <Route exact path={"/boat/edit/:id"} component={BoatEdit} />
-                <Route path='/boat/:id' component={BoatsDetail} />
+                <PrivateRoute exact path="/boat" component={BoatList} />
+                <PrivateRoute exact path='/boat/add' component={BoatAdd} />
+                <PrivateRoute exact path={"/boat/edit/:id"} component={BoatEdit} />
+                <PrivateRoute path='/boat/:id' component={BoatsDetail} />
                 <Route component={PageNotFound} />
             </Switch>
         </div>
