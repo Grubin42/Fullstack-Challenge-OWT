@@ -12,7 +12,6 @@ import PrivateRoute from './PrivateRoute';
 
 const App: FunctionComponent = () => {
 
-    
  return (
     <Router>
         <div>
