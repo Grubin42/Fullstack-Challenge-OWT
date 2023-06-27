@@ -14,10 +14,6 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 notEmpty: { msg: 'Ce champ ne peut pas être vide' },
                 notNull: { msg: 'Champ obligatoire' },
-                len: {
-                    args: [2, 25],
-                    msg: 'Le champ doit contenir entre 2 et 20 caractères',
-                },
             }
         },
         password: {
@@ -26,10 +22,6 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 notEmpty: { msg: 'Ce champ ne peut pas être vide' },
                 notNull: { msg: 'Champ obligatoire' },
-                len: {
-                    args: [2, 25],
-                    msg: 'Le champ doit contenir entre 2 et 20 caractères',
-                },
             }
         },
     }, {
